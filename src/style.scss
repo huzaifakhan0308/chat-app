@@ -21,6 +21,7 @@
 }
 
 .formContainer {
+    background-color: #a7bcff;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -64,6 +65,7 @@
             }
 
             button {
+                background-color: #7b96ec;
                 color: white;
                 padding: 10px;
                 font-weight: bold;
@@ -84,6 +86,7 @@
                 }
             }
         }
+
         p {
             color: #5d5b8d;
             font-size: 12px;
@@ -238,7 +241,7 @@
             .messages {
                 background-color: #ddddf7;
                 padding: 10px;
-                height: calc(100% - 100px);
+                height: calc(100% - 160px);
                 overflow: scroll;
 
                 .message {

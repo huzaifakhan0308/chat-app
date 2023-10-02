@@ -24,35 +24,35 @@ const Register = () => {
             const res = await createUserWithEmailAndPassword(auth, email, password);
 
             //Create a unique image name
-            const date = new Date().getTime();
-            const storageRef = ref(storage, `${displayName + date}`);
+            // const date = new Date().getTime();
+            // const storageRef = ref(storage, `${displayName + date}`);
 
-            await uploadBytesResumable(storageRef, file).then(() => {
-                getDownloadURL(storageRef).then(async (downloadURL) => {
-                    try {
-                        //Update profile
-                        await updateProfile(res.user, {
-                            displayName,
-                            photoURL: downloadURL,
-                        });
-                        //create user on firestore
-                        await setDoc(doc(db, "users", res.user.uid), {
-                            uid: res.user.uid,
-                            displayName,
-                            email,
-                            photoURL: downloadURL,
-                        });
+            // await uploadBytesResumable(storageRef, file).then(() => {
+            //     getDownloadURL(storageRef).then(async (downloadURL) => {
+            //         try {
+            //             //Update profile
+            //             await updateProfile(res.user, {
+            //                 displayName,
+            //                 photoURL: downloadURL,
+            //             });
+            //             //create user on firestore
+            //             await setDoc(doc(db, "users", res.user.uid), {
+            //                 uid: res.user.uid,
+            //                 displayName,
+            //                 email,
+            //                 photoURL: downloadURL,
+            //             });
 
-                        //create empty user chats on firestore
-                        await setDoc(doc(db, "userChats", res.user.uid), {});
-                        navigate("/");
-                    } catch (err) {
-                        console.log(err);
-                        setErr(true);
-                        setLoading(false);
-                    }
-                });
-            });
+            //             //create empty user chats on firestore
+            //             await setDoc(doc(db, "userChats", res.user.uid), {});
+            //             navigate("/");
+            //         } catch (err) {
+            //             console.log(err);
+            //             setErr(true);
+            //             setLoading(false);
+            //         }
+            //     });
+            // });
         } catch (err) {
             setErr(true);
             setLoading(false);
@@ -68,7 +68,7 @@ const Register = () => {
                     <input required type="text" placeholder="display name" />
                     <input required type="email" placeholder="email" />
                     <input required type="password" placeholder="password" />
-                    <input required style={{ display: "none" }} type="file" id="file" />
+                    <input style={{ display: "none" }} type="file" id="file" />
                     <label htmlFor="file">
                         <img src={Add} alt="" />
                         <span>Add an avatar</span>
@@ -78,7 +78,7 @@ const Register = () => {
                     {err && <span>Something went wrong</span>}
                 </form>
                 <p>
-                    You do have an account? <Link to="/register">Login</Link>
+                    You do have an account? <Link to="/login">Login</Link>
                 </p>
             </div>
         </div>
