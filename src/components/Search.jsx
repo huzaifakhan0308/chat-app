@@ -24,12 +24,19 @@ const Search = () => {
       collection(db, "users"),
       where("displayName", "==", username)
     );
+    console.log(q);
 
     try {
       const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        setUser(doc.data());
-      });
+      if (!querySnapshot.empty) {
+        // Assuming there's only one user with the same displayName
+        const userDoc = querySnapshot.docs[0];
+        const userData = userDoc.data();
+        console.log(userData);
+        setUser(userData);
+      } else {
+        setUser(null); // No matching user found
+      }
     } catch (err) {
       setErr(true);
     }

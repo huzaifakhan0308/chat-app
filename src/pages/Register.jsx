@@ -18,7 +18,6 @@ const Register = () => {
         const email = e.target[1].value;
         const password = e.target[2].value;
         const file = e.target[3].files[0];
-        console.log(file);
 
         try {
             //Create user
@@ -36,6 +35,7 @@ const Register = () => {
                             displayName,
                             photoURL: downloadURL,
                         });
+
                         //create user on firestore
                         await setDoc(doc(db, "users", res.user.uid), {
                             uid: res.user.uid,
