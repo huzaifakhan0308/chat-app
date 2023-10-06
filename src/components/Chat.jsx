@@ -15,11 +15,8 @@ const Chat = () => {
       try {
         // Delete the current user's account
         await auth.currentUser.delete();
-        // Redirect or handle the UI accordingly (e.g., back to the login page)
-        // You can use React Router's history or navigate as needed
       } catch (error) {
         console.error("Error deleting account:", error);
-        // Handle any errors that occur during account deletion
       }
     }
   }
