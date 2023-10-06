@@ -5,9 +5,24 @@ import More from "../img/more.png";
 import Messages from "./Messages";
 import Input from "./Input";
 import { ChatContext } from "../context/ChatContext";
+import { auth } from "../firebase";
 
 const Chat = () => {
   const { data } = useContext(ChatContext);
+
+  const handleDeleteAccount = async () => {
+    if (window.confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+      try {
+        // Delete the current user's account
+        await auth.currentUser.delete();
+        // Redirect or handle the UI accordingly (e.g., back to the login page)
+        // You can use React Router's history or navigate as needed
+      } catch (error) {
+        console.error("Error deleting account:", error);
+        // Handle any errors that occur during account deletion
+      }
+    }
+  }
 
   return (
     <div className="chat">
@@ -17,6 +32,7 @@ const Chat = () => {
           <img src={Cam} alt="" />
           <img src={Add} alt="" />
           <img src={More} alt="" />
+          <button onClick={handleDeleteAccount}>Delete Account</button>
         </div>
       </div>
       <Messages />
