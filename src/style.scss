@@ -38,7 +38,7 @@
             input {
                 padding: 15px;
                 border: none;
-                width: 250px;
+                min-width: 300px;
                 border-bottom: 1px solid #a7bcff;
 
                 &::placeholder {
@@ -67,12 +67,42 @@
                     width: 32px;
                 }
             }
+
+            span {
+                display: flex;
+                flex-wrap: wrap;
+                max-width: 300px;
+            }
         }
 
         p {
             color: #5d5b8d;
             font-size: 12px;
             margin-top: 10px;
+        }
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .formContainer {
+            
+        .formWrapper {
+            padding: 20px 20px;
+
+            form {
+                gap: 10px;
+
+                input {
+                    padding: 10px;
+                    min-width: 250px;
+                }
+
+                span {
+                    display: flex;
+                    flex-wrap: wrap;
+                    max-width: 200px;
+                }
+            }
         }
     }
 }
@@ -148,6 +178,10 @@
                             color: lightgray;
                         }
                     }
+                }
+                span {
+                    color: white;
+                    padding: 10px;
                 }
             }
 
