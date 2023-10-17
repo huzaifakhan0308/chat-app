@@ -12,10 +12,13 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { AuthContext } from "../context/AuthContext";
+import debounce from 'lodash/debounce';
+
 const Search = () => {
   const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
   const [err, setErr] = useState(false);
+  const [searchTimer, setSearchTimer] = useState(null);
 
   const { currentUser } = useContext(AuthContext);
 
@@ -24,26 +27,39 @@ const Search = () => {
       collection(db, "users"),
       where("displayName", "==", username)
     );
-    console.log(q);
 
     try {
       const querySnapshot = await getDocs(q);
+      console.log(q);
       if (!querySnapshot.empty) {
         // Assuming there's only one user with the same displayName
         const userDoc = querySnapshot.docs[0];
         const userData = userDoc.data();
-        console.log(userData);
         setUser(userData);
+        setErr(false);
       } else {
         setUser(null); // No matching user found
+        setErr(true);
       }
     } catch (err) {
       setErr(true);
     }
+    clearTimeout(searchTimer);
   };
 
   const handleKey = (e) => {
-    e.code === "Enter" && handleSearch();
+    if (e.code === "Enter") {
+      clearTimeout(searchTimer);
+      handleSearch();
+    } else {
+      // Clear the existing timer and start a new one.
+      clearTimeout(searchTimer);
+      setSearchTimer(
+        setTimeout(() => {
+          handleSearch();
+        }, 3000) // 3000 milliseconds (3 seconds) delay
+      );
+    }
   };
 
   const handleSelect = async () => {
