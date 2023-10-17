@@ -5,6 +5,7 @@ import { auth } from "../firebase";
 
 const Login = () => {
   const [err, setErr] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -13,11 +14,14 @@ const Login = () => {
     const password = e.target[1].value;
 
     try {
+      setLoading(true)
       await signInWithEmailAndPassword(auth, email, password);
+      setLoading(false)
       navigate("/")
     } catch (err) {
       setErr(true);
     }
+    setLoading(false)
   };
   return (
     <div className="formContainer">
@@ -27,10 +31,10 @@ const Login = () => {
         <form onSubmit={handleSubmit}>
           <input type="email" placeholder="email" />
           <input type="password" placeholder="password" />
-          <button>Sign in</button>
+          {loading ? <span>loading...</span> : <button>Sign in</button>}
           {err && <span>Something went wrong !</span>}
         </form>
-        <p>You don't have an account? <Link to="/register">Register</Link></p>
+        {!loading && <p>You don't have an account? <Link to="/register">Register</Link></p>}
       </div>
     </div>
   );
