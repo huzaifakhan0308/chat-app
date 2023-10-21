@@ -18,7 +18,7 @@
 
 # 📖 [CHAT-APP] <a name="about-project"></a>
 
-> This is a simple chat app.
+> This simple chat app.
 
 ## 🛠 Built With <a name="built-with"></a>
 
